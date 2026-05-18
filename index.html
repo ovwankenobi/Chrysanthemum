@@ -62,6 +62,7 @@
         height: auto;
         border-radius: 28px;
         filter: drop-shadow(0 24px 30px rgba(8, 52, 91, 0.18));
+        touch-action: none;
       }
 
       .caption {
@@ -123,6 +124,38 @@
         lx = event.clientX;
         ly = event.clientY;
       });
+      canvas.addEventListener(
+        "touchstart",
+        (event) => {
+          const touch = event.touches[0];
+          if (!touch) return;
+          dragging = true;
+          lx = touch.clientX;
+          ly = touch.clientY;
+          pauseAutoSpin();
+        },
+        { passive: true }
+      );
+      canvas.addEventListener("touchend", () => {
+        dragging = false;
+      });
+      canvas.addEventListener("touchcancel", () => {
+        dragging = false;
+      });
+      canvas.addEventListener(
+        "touchmove",
+        (event) => {
+          if (!dragging) return;
+          const touch = event.touches[0];
+          if (!touch) return;
+          rotY += (touch.clientX - lx) * 0.012;
+          rotX += (touch.clientY - ly) * 0.006;
+          rotX = Math.max(-0.1, Math.min(1.2, rotX));
+          lx = touch.clientX;
+          ly = touch.clientY;
+        },
+        { passive: true }
+      );
 
       function rot3(x, y, z, rx, ry) {
         const x1 = x * Math.cos(ry) - z * Math.sin(ry);
