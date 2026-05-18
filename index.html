@@ -35,15 +35,15 @@
       }
 
       .scene {
-        width: min(92vw, 900px);
+        width: min(92vw, 820px);
         text-align: center;
-        padding: 1.5rem 1rem 2.5rem;
+        padding: 1rem 1rem 1.2rem;
       }
 
       h1 {
-        margin: 0 0 0.5rem;
-        font-size: clamp(2.4rem, 7vw, 5rem);
-        letter-spacing: 0.18em;
+        margin: 0 0 0.2rem;
+        font-size: clamp(2rem, 6vw, 4.1rem);
+        letter-spacing: 0.08em;
         color: #113766;
         text-shadow: 0 6px 18px rgba(24, 79, 144, 0.16);
       }
@@ -52,139 +52,354 @@
         display: grid;
         place-items: center;
         position: relative;
+        margin-top: -0.15rem;
       }
 
-      svg {
-        width: min(84vw, 620px);
+      canvas {
+        display: block;
+        width: min(82vw, 560px);
+        aspect-ratio: 560 / 660;
         height: auto;
+        border-radius: 28px;
         filter: drop-shadow(0 24px 30px rgba(8, 52, 91, 0.18));
       }
 
-      .petal {
-        transform-box: fill-box;
-        transform-origin: center bottom;
-        animation: sway 6s ease-in-out infinite;
-      }
-
-      .petal:nth-child(3n) {
-        animation-duration: 4.4s;
-      }
-
-      .petal:nth-child(4n) {
-        animation-duration: 5.6s;
-      }
-
       .caption {
-        margin-top: 0.5rem;
-        font-size: clamp(1rem, 2vw, 1.2rem);
+        margin-top: 0.15rem;
+        font-size: clamp(0.92rem, 1.8vw, 1.05rem);
         letter-spacing: 0.06em;
         color: rgba(8, 39, 66, 0.78);
-      }
-
-      @keyframes sway {
-        0%,
-        100% {
-          transform: rotate(0deg) scaleY(1);
-        }
-        50% {
-          transform: rotate(1.8deg) scaleY(1.02);
-        }
       }
     </style>
   </head>
   <body>
     <main class="scene">
-      <h1>LLALALAL</h1>
+      <h1>Happy 6th Loveee❤️❤️❤️</h1>
       <div class="flower-wrap">
-        <svg viewBox="0 0 560 660" role="img" aria-label="A realistic blue chrysanthemum graphic">
-          <defs>
-            <radialGradient id="bloomGlow" cx="50%" cy="42%" r="50%">
-              <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
-              <stop offset="55%" stop-color="rgba(108,176,255,0.28)" />
-              <stop offset="100%" stop-color="rgba(108,176,255,0)" />
-            </radialGradient>
-            <linearGradient id="petalGradient" x1="20%" y1="0%" x2="80%" y2="100%">
-              <stop offset="0%" stop-color="#c3ebff" />
-              <stop offset="20%" stop-color="var(--petal-light)" />
-              <stop offset="62%" stop-color="var(--petal-mid)" />
-              <stop offset="100%" stop-color="var(--petal-dark)" />
-            </linearGradient>
-            <linearGradient id="stemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#6ab365" />
-              <stop offset="100%" stop-color="#255a2d" />
-            </linearGradient>
-            <radialGradient id="centerGradient" cx="50%" cy="45%" r="60%">
-              <stop offset="0%" stop-color="#fff6b9" />
-              <stop offset="40%" stop-color="#f4d979" />
-              <stop offset="100%" stop-color="#d79f2d" />
-            </radialGradient>
-            <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="9" />
-            </filter>
-            <filter id="petalShadow" x="-30%" y="-30%" width="160%" height="160%">
-              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0b3975" flood-opacity="0.18" />
-            </filter>
-          </defs>
-
-          <rect x="0" y="0" width="560" height="660" fill="transparent" />
-          <ellipse cx="280" cy="598" rx="142" ry="24" fill="rgba(6, 29, 52, 0.12)" filter="url(#softBlur)" />
-          <circle cx="280" cy="230" r="122" fill="url(#bloomGlow)" filter="url(#softBlur)" />
-
-          <g transform="translate(280 225)" filter="url(#petalShadow)">
-            <ellipse class="petal" rx="14" ry="128" fill="url(#petalGradient)" transform="rotate(-66)" />
-            <ellipse class="petal" rx="14" ry="132" fill="url(#petalGradient)" transform="rotate(-51)" />
-            <ellipse class="petal" rx="13" ry="136" fill="url(#petalGradient)" transform="rotate(-38)" />
-            <ellipse class="petal" rx="14" ry="138" fill="url(#petalGradient)" transform="rotate(-24)" />
-            <ellipse class="petal" rx="14" ry="140" fill="url(#petalGradient)" transform="rotate(-10)" />
-            <ellipse class="petal" rx="14" ry="139" fill="url(#petalGradient)" transform="rotate(4)" />
-            <ellipse class="petal" rx="14" ry="136" fill="url(#petalGradient)" transform="rotate(18)" />
-            <ellipse class="petal" rx="13" ry="132" fill="url(#petalGradient)" transform="rotate(32)" />
-            <ellipse class="petal" rx="14" ry="128" fill="url(#petalGradient)" transform="rotate(47)" />
-            <ellipse class="petal" rx="14" ry="122" fill="url(#petalGradient)" transform="rotate(62)" />
-
-            <ellipse class="petal" rx="12" ry="110" fill="#79bfff" transform="rotate(-72)" />
-            <ellipse class="petal" rx="11" ry="116" fill="#59a6fb" transform="rotate(-58)" />
-            <ellipse class="petal" rx="11" ry="118" fill="#4e95ef" transform="rotate(-44)" />
-            <ellipse class="petal" rx="11" ry="120" fill="#428ae8" transform="rotate(-30)" />
-            <ellipse class="petal" rx="11" ry="122" fill="#3f84e3" transform="rotate(-16)" />
-            <ellipse class="petal" rx="11" ry="123" fill="#3d82df" transform="rotate(-2)" />
-            <ellipse class="petal" rx="11" ry="121" fill="#4389e8" transform="rotate(12)" />
-            <ellipse class="petal" rx="11" ry="118" fill="#4e95ef" transform="rotate(26)" />
-            <ellipse class="petal" rx="11" ry="114" fill="#5da8f7" transform="rotate(40)" />
-            <ellipse class="petal" rx="12" ry="108" fill="#79bfff" transform="rotate(54)" />
-
-            <ellipse class="petal" rx="9" ry="84" fill="#d7f2ff" opacity="0.9" transform="rotate(-64)" />
-            <ellipse class="petal" rx="9" ry="88" fill="#b7dcff" opacity="0.95" transform="rotate(-46)" />
-            <ellipse class="petal" rx="8" ry="92" fill="#9ccdfd" opacity="0.95" transform="rotate(-28)" />
-            <ellipse class="petal" rx="8" ry="96" fill="#8fc3fb" opacity="0.98" transform="rotate(-10)" />
-            <ellipse class="petal" rx="8" ry="96" fill="#8fc3fb" opacity="0.98" transform="rotate(8)" />
-            <ellipse class="petal" rx="8" ry="92" fill="#9ccdfd" opacity="0.95" transform="rotate(26)" />
-            <ellipse class="petal" rx="9" ry="88" fill="#b7dcff" opacity="0.95" transform="rotate(44)" />
-            <ellipse class="petal" rx="9" ry="84" fill="#d7f2ff" opacity="0.9" transform="rotate(62)" />
-
-            <circle r="40" fill="url(#centerGradient)" />
-            <circle r="23" fill="#fff4b8" opacity="0.7" />
-          </g>
-
-          <path
-            d="M281 272 C276 342, 283 420, 278 558"
-            fill="none"
-            stroke="url(#stemGradient)"
-            stroke-width="15"
-            stroke-linecap="round"
-          />
-          <path
-            d="M279 390 C229 360, 192 352, 157 368 C184 387, 214 405, 270 424"
-            fill="#4fa55b"
-          />
-          <path
-            d="M278 454 C320 429, 360 423, 396 441 C365 460, 331 478, 285 492"
-            fill="#438f4e"
-          />
-          <ellipse cx="280" cy="604" rx="84" ry="36" fill="var(--soil)" opacity="0.28" />
-        </svg>
+        <canvas id="flower-canvas" width="560" height="660" aria-label="A realistic blue chrysanthemum graphic"></canvas>
       </div>
-      <p class="caption">A more realistic blue chrysanthemum, still drawn as a clean graphic.</p>
     </main>
+    <script>
+      const canvas = document.getElementById("flower-canvas");
+      const ctx = canvas.getContext("2d");
+      const W = canvas.width;
+      const H = canvas.height;
+      let rotX = 0.38;
+      let rotY = 0;
+      let autoSpin = true;
+      let dragging = false;
+      let lx = 0;
+      let ly = 0;
+      let autoSpinResumeAt = 0;
+      let t = 0;
+
+      function hashNoise(value) {
+        const s = Math.sin(value * 127.1 + 311.7) * 43758.5453123;
+        return s - Math.floor(s);
+      }
+
+      function pauseAutoSpin(ms = 5000) {
+        autoSpin = false;
+        autoSpinResumeAt = performance.now() + ms;
+      }
+
+      canvas.addEventListener("mousedown", (event) => {
+        dragging = true;
+        lx = event.clientX;
+        ly = event.clientY;
+        pauseAutoSpin();
+      });
+      canvas.addEventListener("mouseup", () => {
+        dragging = false;
+      });
+      canvas.addEventListener("mouseleave", () => {
+        dragging = false;
+      });
+      canvas.addEventListener("mousemove", (event) => {
+        if (!dragging) return;
+        rotY += (event.clientX - lx) * 0.012;
+        rotX += (event.clientY - ly) * 0.006;
+        rotX = Math.max(-0.1, Math.min(1.2, rotX));
+        lx = event.clientX;
+        ly = event.clientY;
+      });
+
+      function rot3(x, y, z, rx, ry) {
+        const x1 = x * Math.cos(ry) - z * Math.sin(ry);
+        const z1 = x * Math.sin(ry) + z * Math.cos(ry);
+        const y1 = y * Math.cos(rx) - z1 * Math.sin(rx);
+        const z2 = y * Math.sin(rx) + z1 * Math.cos(rx);
+        return [x1, y1, z2];
+      }
+
+      function proj(x, y, z, scale) {
+        const fov = 3.5;
+        const d = fov / (fov + z + 1.5);
+        return [x * d * scale + W / 2, -y * d * scale + H / 2, z];
+      }
+
+      function petalColor(ringT, light, tip) {
+        const centerBlend = 1 - ringT;
+        const edgeBlend = ringT;
+        let r = Math.round(20 + edgeBlend * 80 + tip * 120 + light * 40);
+        let g = Math.round(30 + edgeBlend * 90 + tip * 100 + light * 50);
+        let b = Math.round(160 + edgeBlend * 70 + tip * 60 + light * 45);
+        r += centerBlend * 30;
+        return `rgb(${Math.min(255, Math.round(r))},${Math.min(255, Math.round(g))},${Math.min(255, Math.round(b))})`;
+      }
+
+      function drawLeaf(points, fill) {
+        ctx.beginPath();
+        ctx.moveTo(points[0][0], points[0][1]);
+        ctx.quadraticCurveTo(points[1][0], points[1][1], points[2][0], points[2][1]);
+        ctx.quadraticCurveTo(points[3][0], points[3][1], points[0][0], points[0][1]);
+        ctx.fillStyle = fill;
+        ctx.fill();
+      }
+
+      function buildPetals() {
+        const petals = [];
+        const numRings = 32;
+
+        for (let ring = 0; ring < numRings; ring += 1) {
+          const ringT = ring / (numRings - 1);
+          const ballR = Math.sin(ringT * Math.PI * 0.96 + 0.03) * (0.42 + ringT * 0.7);
+          const elevation = Math.cos(ringT * Math.PI * 0.96 + 0.03) * (0.78 - ringT * 0.16);
+          const count = Math.round(12 + ringT * 110);
+
+          for (let i = 0; i < count; i += 1) {
+            const seed = ring * 101 + i * 17.13;
+            const jitterA = (hashNoise(seed) - 0.5) * 4.6;
+            const angle = (i / count) * Math.PI * 2 + ring * 0.31 + (jitterA * Math.PI) / 180;
+            const jitterR = (hashNoise(seed + 9) - 0.5) * 0.035;
+            const jitterZ = (hashNoise(seed + 21) - 0.5) * 0.035;
+            const sizeJitter = 0.9 + hashNoise(seed + 33) * 0.24;
+            const lenJitter = 0.88 + hashNoise(seed + 45) * 0.22;
+            const curlNoise = hashNoise(seed + 57);
+            const ringRadius = ballR + jitterR;
+            const bx = ringRadius * Math.cos(angle);
+            const by = ringRadius * Math.sin(angle);
+            const bz = elevation * 0.55 + jitterZ;
+            const petalSize = (0.062 + ringT * 0.052) * sizeJitter;
+            const petalLength = (0.082 + ringT * 0.125) * lenJitter;
+            const innerCurl = (1 - ringT) * 1.02;
+            const outerOpen = ringT * 0.16;
+            const curlSide = (curlNoise - 0.5) * 0.1;
+            const outDir = [
+              Math.cos(angle) * (0.68 + outerOpen) - Math.cos(angle) * innerCurl * 0.2 + curlSide,
+              Math.sin(angle) * (0.68 + outerOpen) - Math.sin(angle) * innerCurl * 0.2 - curlSide,
+              -0.16 * innerCurl + 0.42 + (1 - ringT) * 0.22 - ringT * 0.06,
+            ];
+            const len = Math.sqrt(outDir[0] ** 2 + outDir[1] ** 2 + outDir[2] ** 2);
+            const od = outDir.map((value) => value / len);
+            petals.push({ t: ringT, angle, bx, by, bz, od, petalSize, petalLength, seed });
+          }
+        }
+
+        return petals;
+      }
+
+      const petals = buildPetals();
+
+      function renderFrame() {
+        t += 0.007;
+        if (!autoSpin && performance.now() > autoSpinResumeAt && !dragging) autoSpin = true;
+        if (autoSpin) rotY += 0.0045;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.fillStyle = "#060d1a";
+        ctx.fillRect(0, 0, W, H);
+
+        const sc = Math.min(W, H) * 0.46;
+        const rx = rotX;
+        const ry = rotY;
+        const centerX = W / 2;
+        const centerY = H / 2;
+
+        const glow = ctx.createRadialGradient(centerX, centerY * 0.92, 0, centerX, centerY * 0.92, sc * 0.92);
+        glow.addColorStop(0, "rgba(82, 144, 255, 0.22)");
+        glow.addColorStop(0.45, "rgba(36, 79, 152, 0.12)");
+        glow.addColorStop(1, "rgba(7, 12, 21, 0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, W, H);
+
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY + sc * 0.86, sc * 0.42, sc * 0.085, 0, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(0, 0, 0, 0.22)";
+        ctx.fill();
+
+        const stemTop = proj(...rot3(0.03, -0.08, 0.08, rx, ry), sc);
+        const stemMid = proj(...rot3(-0.08, -0.7, -0.08, rx, ry), sc);
+        const stemBottom = proj(...rot3(-0.02, -1.6, -0.18, rx, ry), sc);
+        const stemGrad = ctx.createLinearGradient(stemTop[0], stemTop[1], stemBottom[0], stemBottom[1]);
+        stemGrad.addColorStop(0, "#5ba761");
+        stemGrad.addColorStop(1, "#2d6a35");
+        ctx.beginPath();
+        ctx.moveTo(stemTop[0], stemTop[1]);
+        ctx.quadraticCurveTo(stemMid[0], stemMid[1], stemBottom[0], stemBottom[1]);
+        ctx.strokeStyle = stemGrad;
+        ctx.lineWidth = 11;
+        ctx.lineCap = "round";
+        ctx.stroke();
+
+        const leftLeaf = [
+          proj(...rot3(-0.04, -0.74, -0.05, rx, ry), sc),
+          proj(...rot3(-0.62, -0.62, 0.08, rx, ry), sc),
+          proj(...rot3(-0.96, -0.92, 0.02, rx, ry), sc),
+          proj(...rot3(-0.18, -1.02, -0.08, rx, ry), sc),
+        ];
+        drawLeaf(leftLeaf, "#4f9955");
+
+        const rightLeaf = [
+          proj(...rot3(0.0, -1.0, -0.12, rx, ry), sc),
+          proj(...rot3(0.52, -0.9, 0.12, rx, ry), sc),
+          proj(...rot3(0.82, -1.18, 0.05, rx, ry), sc),
+          proj(...rot3(0.08, -1.28, -0.12, rx, ry), sc),
+        ];
+        drawLeaf(rightLeaf, "#448a4d");
+
+        const renderList = [];
+
+        for (const pet of petals) {
+          const [rx3, ry3, rz3] = rot3(pet.bx, pet.by, pet.bz, rx, ry);
+          const p3d = proj(rx3, ry3, rz3, sc);
+          const tipRaw = [
+            pet.bx + pet.od[0] * pet.petalLength,
+            pet.by + pet.od[1] * pet.petalLength,
+            pet.bz + pet.od[2] * pet.petalLength,
+          ];
+          const [tr1, tr2, tr3] = rot3(...tipRaw, rx, ry);
+          const tp3d = proj(tr1, tr2, tr3, sc);
+          const dx = tp3d[0] - p3d[0];
+          const dy = tp3d[1] - p3d[1];
+          const dl = Math.sqrt(dx * dx + dy * dy + 0.001);
+          const lightNorm = [
+            pet.od[0] * 0.6 + Math.cos(pet.angle) * 0.4,
+            pet.od[1] * 0.6 + Math.sin(pet.angle) * 0.4,
+            pet.od[2] + 0.95,
+          ];
+          const ll = Math.sqrt(lightNorm.reduce((sum, value) => sum + value * value, 0));
+          const lightDir = [0.55, -0.25, 1.1];
+          const lld = Math.sqrt(lightDir.reduce((sum, value) => sum + value * value, 0));
+          const dotL =
+            (lightNorm[0] * lightDir[0] + lightNorm[1] * lightDir[1] + lightNorm[2] * lightDir[2]) / (ll * lld);
+          const light = Math.max(0.1, Math.min(1, dotL * 0.7 + 0.3));
+          const petalW = (pet.petalSize * sc * 0.5) / (p3d[2] + 3.5);
+          const perpX = -dy / dl;
+          const perpY = dx / dl;
+          const curl = (1 - pet.t) * 0.42 + (hashNoise(pet.seed + 71) - 0.5) * 0.1;
+          const midX = (p3d[0] + tp3d[0]) * 0.5 - perpX * petalW * curl * 0.48;
+          const midY = (p3d[1] + tp3d[1]) * 0.5 - perpY * petalW * curl * 0.48;
+
+          renderList.push({
+            depth: (p3d[2] + tp3d[2]) / 2,
+            sx: p3d[0],
+            sy: p3d[1],
+            tx: tp3d[0],
+            ty: tp3d[1],
+            midX,
+            midY,
+            perpX,
+            perpY,
+            petalW,
+            t_ring: pet.t,
+            light,
+          });
+        }
+
+        renderList.sort((a, b) => a.depth - b.depth);
+
+        for (const r of renderList) {
+          const { sx, sy, tx, ty, midX, midY, perpX, perpY, petalW, t_ring, light } = r;
+          const w = Math.max(2, petalW);
+          const cx1 = midX + perpX * w * 1.12;
+          const cy1 = midY + perpY * w * 1.12;
+          const cx2 = midX - perpX * w * 0.94;
+          const cy2 = midY - perpY * w * 0.94;
+          const hx = sx + (tx - sx) * 0.66 + perpX * w * 0.12;
+          const hy = sy + (ty - sy) * 0.66 + perpY * w * 0.12;
+          const tipRoundX = tx - (tx - sx) * 0.09;
+          const tipRoundY = ty - (ty - sy) * 0.09;
+          const grad = ctx.createLinearGradient(sx, sy, tx, ty);
+          grad.addColorStop(0, petalColor(t_ring, light, 0));
+          grad.addColorStop(0.5, petalColor(t_ring, light * 0.9, 0.4));
+          grad.addColorStop(1, petalColor(t_ring, light * 0.8, 1));
+
+          ctx.beginPath();
+          ctx.moveTo(sx + perpX * 0.4, sy + perpY * 0.4);
+          ctx.quadraticCurveTo(cx2, cy2, tx, ty);
+          ctx.strokeStyle = `rgba(15, 28, 66, ${0.09 + (1 - light) * 0.14})`;
+          ctx.lineWidth = Math.max(0.7, w * 0.16);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.quadraticCurveTo(cx1, cy1, tipRoundX, tipRoundY);
+          ctx.quadraticCurveTo(tx, ty, cx2, cy2);
+          ctx.quadraticCurveTo(cx2 * 0.92 + sx * 0.08, cy2 * 0.92 + sy * 0.08, sx, sy);
+          ctx.closePath();
+          ctx.fillStyle = grad;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.quadraticCurveTo(hx, hy, tx, ty);
+          ctx.strokeStyle = `rgba(220, 240, 255, ${0.03 + light * 0.12})`;
+          ctx.lineWidth = Math.max(0.45, w * 0.06);
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.quadraticCurveTo(cx2, cy2, tx, ty);
+          ctx.strokeStyle = `rgba(34, 58, 120, ${0.08 + (1 - light) * 0.12})`;
+          ctx.lineWidth = Math.max(0.4, w * 0.05);
+          ctx.stroke();
+        }
+
+        const [c3x, c3y, c3z] = rot3(0, 0, 0.52, rx, ry);
+        const cp = proj(c3x, c3y, c3z, sc);
+        const centerPetals = 26;
+
+        for (let i = 0; i < centerPetals; i += 1) {
+          const angle = (i / centerPetals) * Math.PI * 2 + t * 0.02;
+          const innerRadius = c3z > -0.5 ? 10 + hashNoise(i * 7.1) * 10 : 8;
+          const sx = cp[0] + Math.cos(angle) * innerRadius;
+          const sy = cp[1] + Math.sin(angle) * innerRadius;
+          const tx = cp[0] + Math.cos(angle) * (innerRadius + 16 + hashNoise(i * 13.2) * 7);
+          const ty = cp[1] + Math.sin(angle) * (innerRadius + 16 + hashNoise(i * 13.2) * 7);
+          const dx = tx - sx;
+          const dy = ty - sy;
+          const dl = Math.sqrt(dx * dx + dy * dy + 0.001);
+          const perpX = -dy / dl;
+          const perpY = dx / dl;
+          const w = 3.8 + hashNoise(i * 5.4) * 2.2;
+          const cx1 = sx + dx * 0.42 + perpX * w;
+          const cy1 = sy + dy * 0.42 + perpY * w;
+          const cx2 = sx + dx * 0.42 - perpX * w * 0.75;
+          const cy2 = sy + dy * 0.42 - perpY * w * 0.75;
+          const grad = ctx.createLinearGradient(sx, sy, tx, ty);
+          grad.addColorStop(0, "#ffd84d");
+          grad.addColorStop(0.55, "#ffca1f");
+          grad.addColorStop(1, "#f09a00");
+
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.quadraticCurveTo(cx1, cy1, tx, ty);
+          ctx.quadraticCurveTo(cx2, cy2, sx, sy);
+          ctx.closePath();
+          ctx.fillStyle = grad;
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(cp[0], cp[1], 8, 0, Math.PI * 2);
+        ctx.fillStyle = "#7d2b1b";
+        ctx.fill();
+
+        requestAnimationFrame(renderFrame);
+      }
+
+      renderFrame();
+    </script>
   </body>
 </html>
