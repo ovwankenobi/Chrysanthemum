@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #060d1a; overflow: hidden; }
+  canvas { display: block; }
+  #label {
+    position: absolute;
+    bottom: 18px;
+    width: 100%;
+    text-align: center;
+    color: #5aacdd;
+    font-family: 'Palatino Linotype', serif;
+    font-size: 15px;
+    letter-spacing: 0.22em;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="label">CHRYSANTHEMUM · 3D PARAMETRIC</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() {
+  W = canvas.width = window.innerWidth || 680;
+  H = canvas.height = window.innerHeight || 560;
+}
+resize();
+window.addEventListener('resize', resize);
+
+let rotX = 0.38, rotY = 0, autoSpin = true;
+let dragging = false, lx, ly;
+canvas.addEventListener('mousedown', e => { dragging = true; lx = e.clientX; ly = e.clientY; autoSpin = false; });
+canvas.addEventListener('mouseup', () => dragging = false);
+canvas.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  rotY += (e.clientX - lx) * 0.012;
+  rotX += (e.clientY - ly) * 0.006;
+  rotX = Math.max(-0.1, Math.min(1.2, rotX));
+  lx = e.clientX; ly = e.clientY;
+});
+
+function rot3(x, y, z, rx, ry) {
+  let x1 = x * Math.cos(ry) - z * Math.sin(ry);
+  let z1 = x * Math.sin(ry) + z * Math.cos(ry);
+  let y1 = y * Math.cos(rx) - z1 * Math.sin(rx);
+  let z2 = y * Math.sin(rx) + z1 * Math.cos(rx);
+  return [x1, y1, z2];
+}
+
+function proj(x, y, z, sc) {
+  const fov = 3.5;
+  const d = fov / (fov + z + 1.5);
+  return [x * d * sc + W / 2, -y * d * sc + H / 2, z];
+}
+
+// Build chrysanthemum petals like the photo:
+// - dense round ball shape
+// - multiple concentric rings, each with many small petals
+// - petals curl inward at tips near center, open outward at edges
+// - golden center disc
+
+function buildPetals() {
+  const petals = [];
+  const numRings = 18;
+
+  for (let ring = 0; ring < numRings; ring++) {
+    const t = ring / (numRings - 1); // 0=center, 1=outer
+    
+    // Flower is a dense sphere: radius grows then curves back
+    const ballT = t;
+    const ballR = Math.sin(ballT * Math.PI * 0.88 + 0.1);
+    const elevation = Math.cos(ballT * Math.PI * 0.88 + 0.1);
+    
+    // Number of petals per ring increases outward
+    const nPetals = Math.round(6 + t * 58);
+    const petalSize = 0.055 + t * 0.072;
+    const petalLength = 0.13 + t * 0.18;
+    
+    for (let p = 0; p < nPetals; p++) {
+      const angle = (p / nPetals) * Math.PI * 2 + ring * 0.31;
+      
+      // Petal base position on the sphere surface
+      const bx = ballR * Math.cos(angle);
+      const by = ballR * Math.sin(angle);
+      const bz = elevation * 0.55;
+      
+      // Petal grows outward & slightly upward from base
+      const outDir = [Math.cos(angle), Math.sin(angle), 0.1 + (1 - t) * 0.4];
+      const len = Math.sqrt(outDir[0]**2 + outDir[1]**2 + outDir[2]**2);
+      const od = outDir.map(v => v / len);
+      
+      petals.push({ ring, t, angle, bx, by, bz, od, petalSize, petalLength, p, nPetals });
+    }
+  }
+  return petals;
+}
+
+const petals = buildPetals();
+
+function petalColor(t, light, tip) {
+  // Deep blue-violet at center, lighter cornflower blue at edges, white tips like photo
+  const centerBlend = 1 - t;
+  const edgeBlend = t;
+  const tipFactor = tip; // 0=base, 1=tip
+  
+  // Base hue: deep royal blue at center, lighter at outer rings
+  let r = Math.round(20 + edgeBlend * 80 + tipFactor * 120 + light * 40);
+  let g = Math.round(30 + edgeBlend * 90 + tipFactor * 100 + light * 50);
+  let b = Math.round(160 + edgeBlend * 70 + tipFactor * 60 + light * 45);
+  
+  // Inner rings slightly purple-blue like deep shadow
+  r += centerBlend * 30;
+  
+  return `rgb(${Math.min(255,Math.round(r))},${Math.min(255,Math.round(g))},${Math.min(255,Math.round(b))})`;
+}
+
+let t = 0;
+
+function drawPetal(p3d, od3d, size, length, t_ring, light) {
+  // Draw one petal as an elongated ellipse, oriented outward
+  const [px, py, pz] = p3d;
+  const [ox, oy, oz] = od3d;
+
+  // Tip point
+  const tx2 = px + ox * length;
+  const ty2 = py + oy * length;
+  const tz2 = pz + oz * length;
+
+  // Perpendicular for width
+  const perp = [-oy, ox, 0];
+  const pl = Math.sqrt(perp[0]**2 + perp[1]**2 + 0.001);
+  const pn = perp.map(v => v / pl * size);
+
+  // 4 control points for petal shape
+  const w1 = [px + pn[0], py + pn[1], pz + pn[2]];
+  const w2 = [px - pn[0], py - pn[1], pz - pn[2]];
+  const w3 = [tx2 + pn[0]*0.25, ty2 + pn[1]*0.25, tz2];
+  const w4 = [tx2 - pn[0]*0.25, ty2 - pn[1]*0.25, tz2];
+
+  return { base: [px,py,pz], tip: [tx2,ty2,tz2], w1, w2, w3, w4, t_ring, light, depthZ: (pz+tz2)/2 };
+}
+
+function renderFrame() {
+  t += 0.007;
+  if (autoSpin) rotY += 0.006;
+
+  ctx.fillStyle = '#060d1a';
+  ctx.fillRect(0, 0, W, H);
+
+  const sc = Math.min(W, H) * 0.46;
+  const rx = rotX, ry = rotY;
+
+  // Collect all petal render data
+  const renderList = [];
+
+  for (const pet of petals) {
+    const [rx3, ry3, rz3] = rot3(pet.bx, pet.by, pet.bz, rx, ry);
+    const p3d = proj(rx3, ry3, rz3, sc);
+
+    const tipRaw = [
+      pet.bx + pet.od[0] * pet.petalLength,
+      pet.by + pet.od[1] * pet.petalLength,
+      pet.bz + pet.od[2] * pet.petalLength
+    ];
+    const [tr1, tr2, tr3] = rot3(...tipRaw, rx, ry);
+    const tp3d = proj(tr1, tr2, tr3, sc);
+
+    // Compute screen direction
+    const dx = tp3d[0] - p3d[0];
+    const dy = tp3d[1] - p3d[1];
+    const dl = Math.sqrt(dx*dx + dy*dy + 0.001);
+
+    // Lighting from upper-left
+    const lightNorm = [Math.cos(pet.angle), Math.sin(pet.angle), 0.8];
+    const ll = Math.sqrt(lightNorm.reduce((a,v)=>a+v*v,0));
+    const lightDir = [0.4, 0.6, 1.0];
+    const lld = Math.sqrt(lightDir.reduce((a,v)=>a+v*v,0));
+    const dotL = (lightNorm[0]*lightDir[0] + lightNorm[1]*lightDir[1] + lightNorm[2]*lightDir[2]) / (ll * lld);
+    const light = Math.max(0.1, Math.min(1, dotL * 0.7 + 0.3));
+
+    const petalW = (pet.petalSize * sc * 0.5) / (p3d[2] + 3.5);
+    const petalL = dl;
+
+    const perpX = -dy / dl;
+    const perpY = dx / dl;
+
+    renderList.push({
+      depth: (p3d[2] + tp3d[2]) / 2,
+      sx: p3d[0], sy: p3d[1],
+      tx: tp3d[0], ty: tp3d[1],
+      perpX, perpY,
+      petalW, t_ring: pet.t, light,
+      tipVisible: rz3 > -1.5
+    });
+  }
+
+  // Sort back to front
+  renderList.sort((a, b) => a.depth - b.depth);
+
+  for (const r of renderList) {
+    const { sx, sy, tx, ty, perpX, perpY, petalW, t_ring, light } = r;
+    const w = Math.max(2, petalW);
+
+    // Petal shape: bezier from base to tip
+    const cx1 = sx + perpX * w * 0.8 + (tx - sx) * 0.35;
+    const cy1 = sy + perpY * w * 0.8 + (ty - sy) * 0.35;
+    const cx2 = sx - perpX * w * 0.8 + (tx - sx) * 0.35;
+    const cy2 = sy - perpY * w * 0.8 + (ty - sy) * 0.35;
+
+    // Draw petal with gradient from base to tip color
+    const grad = ctx.createLinearGradient(sx, sy, tx, ty);
+    grad.addColorStop(0, petalColor(t_ring, light, 0));
+    grad.addColorStop(0.5, petalColor(t_ring, light * 0.9, 0.4));
+    grad.addColorStop(1, petalColor(t_ring, light * 0.8, 1));
+
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.quadraticCurveTo(cx1, cy1, tx, ty);
+    ctx.quadraticCurveTo(cx2, cy2, sx, sy);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Petal edge highlight
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.quadraticCurveTo(cx1, cy1, tx, ty);
+    ctx.strokeStyle = `rgba(180,220,255,${0.04 + light * 0.08})`;
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  }
+
+  // Draw center disc (golden, like photo)
+  const [c3x, c3y, c3z] = rot3(0, 0, 0.55, rx, ry);
+  const cp = proj(c3x, c3y, c3z, sc);
+  const cR = sc * 0.065 / (cp[2] + 3.5);
+
+  // Outer golden ring
+  const gOuter = ctx.createRadialGradient(cp[0], cp[1], 0, cp[0], cp[1], cR);
+  gOuter.addColorStop(0, '#4a1a00');
+  gOuter.addColorStop(0.3, '#8b2200');
+  gOuter.addColorStop(0.6, '#e07000');
+  gOuter.addColorStop(0.85, '#f5a800');
+  gOuter.addColorStop(1, '#ffd040');
+  ctx.beginPath();
+  ctx.arc(cp[0], cp[1], cR, 0, Math.PI * 2);
+  ctx.fillStyle = gOuter;
+  ctx.fill();
+
+  // Small stamens dots around center
+  for (let s = 0; s < 24; s++) {
+    const sa = (s / 24) * Math.PI * 2;
+    const sr = cR * (0.5 + Math.random() * 0.0);
+    const sdx = Math.cos(sa + t * 0.2) * sr * 0.82;
+    const sdy = Math.sin(sa + t * 0.2) * sr * 0.82;
+    ctx.beginPath();
+    ctx.arc(cp[0] + sdx, cp[1] + sdy, cR * 0.09, 0, Math.PI * 2);
+    ctx.fillStyle = s % 3 === 0 ? '#ffd040' : '#e07000';
+    ctx.fill();
+  }
+
+  // Dark maroon inner center (like photo)
+  ctx.beginPath();
+  ctx.arc(cp[0], cp[1], cR * 0.28, 0, Math.PI * 2);
+  ctx.fillStyle = '#2a0606';
+  ctx.fill();
+
+  requestAnimationFrame(renderFrame);
+}
+
+renderFrame();
+</script>
+</body>
+</html>

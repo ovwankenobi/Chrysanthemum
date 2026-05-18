@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Chrysanthemum</title>
+    <style>
+      :root {
+        --bg-top: #edf6ff;
+        --bg-bottom: #aac9e9;
+        --ink: #082742;
+        --petal-dark: #0d4198;
+        --petal-mid: #2573d8;
+        --petal-light: #8ac8ff;
+        --center: #f4c95d;
+        --soil: #816246;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.9), transparent 30%),
+          radial-gradient(circle at 50% 120%, rgba(22, 69, 116, 0.12), transparent 32%),
+          linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+      }
+
+      .scene {
+        width: min(92vw, 900px);
+        text-align: center;
+        padding: 1.5rem 1rem 2.5rem;
+      }
+
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: clamp(2.4rem, 7vw, 5rem);
+        letter-spacing: 0.18em;
+        color: #113766;
+        text-shadow: 0 6px 18px rgba(24, 79, 144, 0.16);
+      }
+
+      .flower-wrap {
+        display: grid;
+        place-items: center;
+        position: relative;
+      }
+
+      svg {
+        width: min(84vw, 620px);
+        height: auto;
+        filter: drop-shadow(0 24px 30px rgba(8, 52, 91, 0.18));
+      }
+
+      .petal {
+        transform-box: fill-box;
+        transform-origin: center bottom;
+        animation: sway 6s ease-in-out infinite;
+      }
+
+      .petal:nth-child(3n) {
+        animation-duration: 4.4s;
+      }
+
+      .petal:nth-child(4n) {
+        animation-duration: 5.6s;
+      }
+
+      .caption {
+        margin-top: 0.5rem;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        letter-spacing: 0.06em;
+        color: rgba(8, 39, 66, 0.78);
+      }
+
+      @keyframes sway {
+        0%,
+        100% {
+          transform: rotate(0deg) scaleY(1);
+        }
+        50% {
+          transform: rotate(1.8deg) scaleY(1.02);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="scene">
+      <h1>LLALALAL</h1>
+      <div class="flower-wrap">
+        <svg viewBox="0 0 560 660" role="img" aria-label="A realistic blue chrysanthemum graphic">
+          <defs>
+            <radialGradient id="bloomGlow" cx="50%" cy="42%" r="50%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
+              <stop offset="55%" stop-color="rgba(108,176,255,0.28)" />
+              <stop offset="100%" stop-color="rgba(108,176,255,0)" />
+            </radialGradient>
+            <linearGradient id="petalGradient" x1="20%" y1="0%" x2="80%" y2="100%">
+              <stop offset="0%" stop-color="#c3ebff" />
+              <stop offset="20%" stop-color="var(--petal-light)" />
+              <stop offset="62%" stop-color="var(--petal-mid)" />
+              <stop offset="100%" stop-color="var(--petal-dark)" />
+            </linearGradient>
+            <linearGradient id="stemGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#6ab365" />
+              <stop offset="100%" stop-color="#255a2d" />
+            </linearGradient>
+            <radialGradient id="centerGradient" cx="50%" cy="45%" r="60%">
+              <stop offset="0%" stop-color="#fff6b9" />
+              <stop offset="40%" stop-color="#f4d979" />
+              <stop offset="100%" stop-color="#d79f2d" />
+            </radialGradient>
+            <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="9" />
+            </filter>
+            <filter id="petalShadow" x="-30%" y="-30%" width="160%" height="160%">
+              <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0b3975" flood-opacity="0.18" />
+            </filter>
+          </defs>
+
+          <rect x="0" y="0" width="560" height="660" fill="transparent" />
+          <ellipse cx="280" cy="598" rx="142" ry="24" fill="rgba(6, 29, 52, 0.12)" filter="url(#softBlur)" />
+          <circle cx="280" cy="230" r="122" fill="url(#bloomGlow)" filter="url(#softBlur)" />
+
+          <g transform="translate(280 225)" filter="url(#petalShadow)">
+            <ellipse class="petal" rx="14" ry="128" fill="url(#petalGradient)" transform="rotate(-66)" />
+            <ellipse class="petal" rx="14" ry="132" fill="url(#petalGradient)" transform="rotate(-51)" />
+            <ellipse class="petal" rx="13" ry="136" fill="url(#petalGradient)" transform="rotate(-38)" />
+            <ellipse class="petal" rx="14" ry="138" fill="url(#petalGradient)" transform="rotate(-24)" />
+            <ellipse class="petal" rx="14" ry="140" fill="url(#petalGradient)" transform="rotate(-10)" />
+            <ellipse class="petal" rx="14" ry="139" fill="url(#petalGradient)" transform="rotate(4)" />
+            <ellipse class="petal" rx="14" ry="136" fill="url(#petalGradient)" transform="rotate(18)" />
+            <ellipse class="petal" rx="13" ry="132" fill="url(#petalGradient)" transform="rotate(32)" />
+            <ellipse class="petal" rx="14" ry="128" fill="url(#petalGradient)" transform="rotate(47)" />
+            <ellipse class="petal" rx="14" ry="122" fill="url(#petalGradient)" transform="rotate(62)" />
+
+            <ellipse class="petal" rx="12" ry="110" fill="#79bfff" transform="rotate(-72)" />
+            <ellipse class="petal" rx="11" ry="116" fill="#59a6fb" transform="rotate(-58)" />
+            <ellipse class="petal" rx="11" ry="118" fill="#4e95ef" transform="rotate(-44)" />
+            <ellipse class="petal" rx="11" ry="120" fill="#428ae8" transform="rotate(-30)" />
+            <ellipse class="petal" rx="11" ry="122" fill="#3f84e3" transform="rotate(-16)" />
+            <ellipse class="petal" rx="11" ry="123" fill="#3d82df" transform="rotate(-2)" />
+            <ellipse class="petal" rx="11" ry="121" fill="#4389e8" transform="rotate(12)" />
+            <ellipse class="petal" rx="11" ry="118" fill="#4e95ef" transform="rotate(26)" />
+            <ellipse class="petal" rx="11" ry="114" fill="#5da8f7" transform="rotate(40)" />
+            <ellipse class="petal" rx="12" ry="108" fill="#79bfff" transform="rotate(54)" />
+
+            <ellipse class="petal" rx="9" ry="84" fill="#d7f2ff" opacity="0.9" transform="rotate(-64)" />
+            <ellipse class="petal" rx="9" ry="88" fill="#b7dcff" opacity="0.95" transform="rotate(-46)" />
+            <ellipse class="petal" rx="8" ry="92" fill="#9ccdfd" opacity="0.95" transform="rotate(-28)" />
+            <ellipse class="petal" rx="8" ry="96" fill="#8fc3fb" opacity="0.98" transform="rotate(-10)" />
+            <ellipse class="petal" rx="8" ry="96" fill="#8fc3fb" opacity="0.98" transform="rotate(8)" />
+            <ellipse class="petal" rx="8" ry="92" fill="#9ccdfd" opacity="0.95" transform="rotate(26)" />
+            <ellipse class="petal" rx="9" ry="88" fill="#b7dcff" opacity="0.95" transform="rotate(44)" />
+            <ellipse class="petal" rx="9" ry="84" fill="#d7f2ff" opacity="0.9" transform="rotate(62)" />
+
+            <circle r="40" fill="url(#centerGradient)" />
+            <circle r="23" fill="#fff4b8" opacity="0.7" />
+          </g>
+
+          <path
+            d="M281 272 C276 342, 283 420, 278 558"
+            fill="none"
+            stroke="url(#stemGradient)"
+            stroke-width="15"
+            stroke-linecap="round"
+          />
+          <path
+            d="M279 390 C229 360, 192 352, 157 368 C184 387, 214 405, 270 424"
+            fill="#4fa55b"
+          />
+          <path
+            d="M278 454 C320 429, 360 423, 396 441 C365 460, 331 478, 285 492"
+            fill="#438f4e"
+          />
+          <ellipse cx="280" cy="604" rx="84" ry="36" fill="var(--soil)" opacity="0.28" />
+        </svg>
+      </div>
+      <p class="caption">A more realistic blue chrysanthemum, still drawn as a clean graphic.</p>
+    </main>
+  </body>
+</html>
